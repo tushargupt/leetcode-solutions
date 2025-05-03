@@ -9,14 +9,18 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        unordered_map<ListNode*, bool> vis;
-        ListNode* curr = head;
-        while(curr){
-            if(vis.count(curr) && vis[curr]==true)
-            return true;
-            vis[curr] = true;
-            curr = curr->next;
-        }
-        return false;
+          if (!head || !head->next) return false;
+    
+    ListNode *slow = head;
+    ListNode *fast = head;
+    
+    while (fast && fast->next) {
+        slow = slow->next;       
+        fast = fast->next->next;  
+        
+        if (slow == fast) return true; 
+    }
+    
+    return false; 
     }
 };
